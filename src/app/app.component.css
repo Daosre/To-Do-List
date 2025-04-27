@@ -1,0 +1,4 @@
+.task_List li.completed span {
+  text-decoration: line-through;
+  color: red;
+}
