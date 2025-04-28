@@ -1,22 +1,49 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  model,
+  signal,
+  Signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+
+interface todoItem {
+  id: number;
+  name: string;
+  completed: boolean;
+}
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  todo = '';
-  todolist: { id: number; name: string }[] = [];
+  todolist: Signal<todoItem[]> = signal([]);
 
-  addTask() {
-    this.todolist.push({ id: this.todolist.length + 1, name: this.todo });
-  }
+  name = model('');
 
-  deleteTask(id: number) {
-    this.todolist = this.todolist.filter((element) => element.id != id);
+  add(): void {
+    const obj: todoItem = {
+      name: this.name(),
+      completed: false,
+      id: this.todolist().length++,
+    };
+    this.todolist().push(obj);
+    this.name.set('');
   }
 }

@@ -1,17 +1,27 @@
-<main class="todo_Container">
-  <section class="add_Task">
-    <h1>To-Do List</h1>
-    <input [(ngModel)]="todo" type="text" placeholder="Enter task" />
-    <button (click)="addTask()">Add Task</button>
-
-    @for (todo of todolist; track todo.id){
-    <ul>
-      <li>{{ todo.id }}</li>
-      <li>{{ todo.name }}</li>
-      <button (click)="deleteTask(todo.id)">Delete</button>
-    </ul>
-    }
-  </section>
-</main>
-
-<router-outlet />
+<div>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> To-do List</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your task</mat-label>
+          <input matInput placeholder="" [(ngModel)]="name" />
+          <!-- Ajout d'un icon depuis Angular meterial / Ne pas oublier de l'installer \ / Google Font -->
+          <!-- Regarder sur google font une fois l'icon selectionner : Inserting the icon : rentrer le nom marqué à cet emplacement. -->
+          <mat-icon matSuffix ((click)="add()")>add</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="listing">
+        <div>
+          <mat-checkbox>Check me!</mat-checkbox>
+        </div>
+        <div>
+          <mat-icon matSuffix>edit</mat-icon>
+          <mat-icon matSuffix>delete</mat-icon>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
